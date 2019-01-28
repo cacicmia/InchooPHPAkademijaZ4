@@ -5,3 +5,6 @@
  * Date: 28.01.19.
  * Time: 08:51
  */
+function br(){
+    echo "<br />";
+}
