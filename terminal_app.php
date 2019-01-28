@@ -48,6 +48,14 @@ function overview($list){
         echo "\n Zaposlenici nisu uneseni";
     } else{
 
+       foreach($list as $employee){
+           echo "\nID: " . $employee->getID(). " Ime: ". $employee->getName().
+               " Rođen:". $employee->getDate()
+               . " Spol: ". $employee->getSex() . " Prihodi: ". $employee->getIncome(). "\n";
+
+       }
+       echo "\n Broj zaposlenika:". count($list);
+
     }
 }
 function addNew(&$list){
@@ -62,6 +70,7 @@ function addNew(&$list){
             if ($obj->getID===$input){
                 echo "\n Već postoji zaposlenik s tim ID-om";
                 addNew($list);
+                break;
             }
         }
     }
@@ -101,13 +110,17 @@ function addSex(&$current){
     $input= trim(fgets(STDIN));
     $current->setSex($input);
     if (!$current->setSex($input)){
-        echo "\n nevažeći odgovor";
+        echo "\n nevažeći unos";
         addSex($current);
     } else {
         addIncome($current);
     }
 }
 function addIncome($current){
+    echo "Unesite mjesečna primanja:";
+    $input= trim(fgets(STDIN));
+    $current->setIncome($input);
+
 
 }
 

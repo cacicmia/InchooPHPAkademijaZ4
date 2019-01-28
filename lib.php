@@ -62,6 +62,9 @@ class Zaposlenik
         return $this->birthdate;
     }
 
+    public function getStringDate(){
+        return date("d-m-Y",$this->birthdate);
+    }
     /**
      * @param mixed $birthdate
      */
@@ -124,6 +127,7 @@ class Zaposlenik
      */
     public function getIncome()
     {
+
         return $this->income;
     }
 
@@ -132,7 +136,9 @@ class Zaposlenik
      */
     public function setIncome($income)
     {
+        $income= floatval($income);
         $this->income = $income;
+
     }
 
 
