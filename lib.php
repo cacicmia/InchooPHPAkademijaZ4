@@ -13,7 +13,8 @@ class Zaposlenik
     protected $sex;
     protected $income;
     public function __construct($id){
-        $this->setID($id);
+      $id=intval($id);
+      $this->setID($id);
     }
     /**
      * @return mixed
@@ -44,17 +45,19 @@ class Zaposlenik
      */
     public function setName($name)
     {
-        if (preg_match("/\d/",$name)>0){
+        if (preg_match("/[0-9]/",$name)>0){
             return false;
-        }
+        }else{
             $this->name = $name;
             return true;
+        }
+
     }
 
     /**
      * @return mixed
      */
-    public function getBirthdate()
+    public function getDate()
     {
         return $this->birthdate;
     }
@@ -62,10 +65,24 @@ class Zaposlenik
     /**
      * @param mixed $birthdate
      */
-    public function setBirthdate($birthdate)
+    public function setDate($birthdate)
     {
-        $this->birthdate = $birthdate;
+        if (preg_match("/a-zA-Z/",$birthdate)>0){
+            return false;
+        }else {
+            $divide = explode(".", $birthdate, 3);
+            $d = $divide[0];
+            $m = $divide[1];
+            $y = $divide[2];
+            if (checkdate($m,$d,$y)){
+            $this->birthdate = new DateTime("{$y}-{$m}-{$d}");
+            return true;
+            } else {
+                return false;
+            }
+        }
     }
+
 
     /**
      * @return mixed
@@ -80,7 +97,26 @@ class Zaposlenik
      */
     public function setSex($sex)
     {
-        $this->sex = $sex;
+        switch($sex){
+            case "M":
+            case "m":
+                $this->sex = $sex;
+                return true;
+                break;
+            case "Ž":
+            case "ž":
+                $this->sex = $sex;
+                return true;
+                break;
+            case "N":
+            case "n":
+                $this->sex = $sex;
+                return true;
+                break;
+            default:
+                return false;
+        }
+
     }
 
     /**
@@ -101,3 +137,4 @@ class Zaposlenik
 
 
 }
+
